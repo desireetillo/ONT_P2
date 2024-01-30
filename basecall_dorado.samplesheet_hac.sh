@@ -14,10 +14,10 @@ DIR=$1 #FULLPATH
 OUTPUT_DIR=$2 # OUTPUT_DIR
 #SAMPLE_SHEET=$3
 MODEL=${DORADO_MODELS}/dna_r10.4.1_e8.2_400bps_hac@v4.3.0 # NEWEST as of 1/30/24
-OUTPUT_BAM=$workdir/$OUTPUT_DIR/dorado.bam
+
 
 workdir=`pwd`
-
+OUTPUT_BAM=$workdir/$OUTPUT_DIR/dorado.bam
 mkdir -p $OUTPUT_DIR;
 
 module load dorado/0.5.1
