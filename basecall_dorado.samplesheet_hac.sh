@@ -22,10 +22,10 @@ mkdir -p $OUTPUT_DIR;
 
 module load dorado/0.5.1
 ls $MODEL
-dorado basecaller --device cuda:all $MODEL $DIR --kit-name SQK-RBK114-96 --recursive >$OUTPUT_BAM
+dorado basecaller --device cuda:all $MODEL $DIR --kit-name SQK-RBK114-96 --recursive  --sample-sheet $DIR/SampleSheet.csv >$OUTPUT_BAM
 dorado summary $OUTPUT_BAM > $workdir/$OUTPUT_DIR/summary.tsv
 
 cd /lscratch/$SLURM_JOB_ID
-dorado demux --output-dir . --no-classify  $OUTPUT_BAM --emit-fastq --sample-sheet $DIR/SampleSheet.csv
+dorado demux --output-dir . --no-classify  $OUTPUT_BAM --emit-fastq
 gzip *fastq
 mv *gz $workdir/$OUTPUT_DIR/
