@@ -25,7 +25,7 @@ mkdir -p $OUTPUT_DIR;
 ls $MODEL
 
 # basecall
-dorado basecaller --device cuda:all $MODEL $DIR--kit-name SQK-RBK114-96 --recursive >$OUTPUT_BAM
+dorado basecaller --device cuda:all $MODEL $DIR--kit-name SQK-RBK114-96 --recursive --sample-sheet $DIR/SampleSheet.csv >$OUTPUT_BAM
 
 # generate summary file
 dorado summary $OUTPUT_BAM  >$OUTPUT_DIR/summary.tsv
