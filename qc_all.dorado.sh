@@ -8,19 +8,25 @@
 #SBATCH --gres=lscratch:20
 
 dir=$1
+$SCRIPT_DIR=/data/GAU/projects/nanopore/Plasmid_sequencing/P2/Scripts
 
 source /data/GAU/conda/etc/profile.d/conda.sh
 conda activate nanopore
 
-module load R
-
-
+mkdir qc;
+multiqc_config=$SCRIPT_DIR/ones_multiqc.yaml
 seqsummary=`ls $dir/*summary*.tsv`
 echo $seqsummary
-Rscript /data/GAU/projects/nanopore/bin/minion_qc/MinIONQC.R -i $dir/$seqsummary -o qc/$dir.MinIONQC
+
 pycoQC --summary_file $seqsummary  --html_outfile qc/$dir.pycoQC_report.html  --report_title $dir;
-fastq=`ls $dir/*fastq.gz`
+
+fastq=`ls $dir/*/*fastq.gz`
 echo $fastq;
 NanoPlot -t 12 --fastq $fastq -o qc/$dir.NanoPlot
 
+module load fastqc
+fastqc $fastq -t 12 -o qc/fastqc
 
+cd qc;
+module load multiqc
+multiqc -f -c $multiqc_config $dir.Nanoplot fastqc
