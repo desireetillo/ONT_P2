@@ -9,11 +9,12 @@
 
 
 #dorado basecaller --device cuda:all ${DORADO_MODELS}/dna_r9.4.1_e8_sup@v3.3 input > output.bam
-module load dorado/0.5.1
 
+module load dorado/0.5.1
 
 DIR=$1 #FULLPATH
 OUTPUT_DIR=$2 # OUTPUT_DIR
+
 #SAMPLE_SHEET=$3
 
 MODEL=${DORADO_MODELS}/dna_r10.4.1_e8.2_400bps_hac@v4.3.0 # NEWEST as of 1/30/24
@@ -25,7 +26,7 @@ mkdir -p $OUTPUT_DIR;
 ls $MODEL
 
 # basecall
-dorado basecaller --device cuda:all $MODEL $DIR--kit-name SQK-RBK114-96 --recursive --sample-sheet $DIR/SampleSheet.csv >$OUTPUT_BAM
+dorado basecaller --device cuda:all $MODEL $DIR --kit-name SQK-RBK114-96 --recursive --sample-sheet $DIR/SampleSheet.csv >$OUTPUT_BAM
 
 # generate summary file
 dorado summary $OUTPUT_BAM  >$OUTPUT_DIR/summary.tsv
